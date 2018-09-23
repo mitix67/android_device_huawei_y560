@@ -3,7 +3,7 @@ TARGET_SCREEN_WIDTH := 480
 TARGET_SCREEN_HEIGHT := 854
 
 # Inherit some common LineageOS stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
+$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 # Inherit device configuration
 $(call inherit-product, device/huawei/y560/y560.mk)
