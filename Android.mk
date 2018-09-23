@@ -1,19 +1,30 @@
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
 
-LOCAL_MODULE_TAGS := optional
+# Copyright (C) 2016 The CyanogenMod Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-LOCAL_SRC_FILES := $(call all-java-files-under, src)
+LOCAL_PATH := $(call my-dir)
 
-LOCAL_PACKAGE_NAME := DozeService
-LOCAL_CERTIFICATE := platform
-LOCAL_PRIVILEGED_MODULE := true
-
-LOCAL_STATIC_JAVA_LIBRARIES := \
-    org.lineageos.platform.internal
-
-LOCAL_PROGUARD_FLAG_FILES := proguard.flags
-
-include $(BUILD_PACKAGE)
-
+ifeq ($(TARGET_DEVICE),y560)
 include $(call all-makefiles-under,$(LOCAL_PATH))
+
+# Symlinks
+$(shell mkdir -p $(TARGET_OUT_ETC)/firmware/wlan/prima; \
+    ln -sf /persist/wlan_mac.bin \
+    $(TARGET_OUT_ETC)/firmware/wlan/prima/wlan_mac.bin; \
+    ln -sf /persist/WCNSS_wlan_dictionary.dat \
+    $(TARGET_OUT_ETC)/firmware/wlan/prima/WCNSS_wlan_dictionary.dat; \
+    ln -sf /data/misc/wifi/WCNSS_qcom_cfg.ini \
+    $(TARGET_OUT_ETC)/firmware/wlan/prima/WCNSS_qcom_cfg.ini)
+endif
